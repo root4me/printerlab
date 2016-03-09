@@ -1,20 +1,34 @@
 
 
 
-module roundedEdgeSquare()
+// Cube with rounded corners
+// roundedCornerCube (50,50,4);
+module roundedCornerCube(length, width, thickness){
+
+        hull()
+        {
+            translate([length/2, width/2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
+            translate([length/2, -width/2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
+            translate([-length/2, width/2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
+            translate([-length/2, -width/2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
+        }
+
+}
+
+// Hollow cube with rounded corners. Will look like a frame with rounded con
+// hollowRoundedCornerCube(50,70,4,2);
+module hollowRoundedCornerCube(length, width, thickness, wallthickness)
 {
-    hull()
+    difference()
     {
-        translate([5,0,0]) cylinder(2, $fn=50);
-        translate([0,5,0]) cylinder(2, $fn=50);
-        translate([-5,0,0]) cylinder(2, $fn=50);
-        translate([0,-5,0]) cylinder(2, $fn=50);
+        roundedCornerCube(length,width,thickness);
+        roundedCornerCube(length-(wallthickness*2),width-(wallthickness*2),thickness);
     }
 }
 
 module cylinderWithHandle(radius, thickness)
 {
-    rotate_extrude($fn=50) 
+    rotate_extrude($fn=100) 
         polygon( points = [[0,0], [radius,0], [radius,thickness] , [1,thickness], [2,thickness + 2] , [2,thickness + 6],[0,thickness + 6]] );
 }
 
@@ -60,4 +74,6 @@ module honeycomb (length, width, height, cell_size, wall_thickness) {
 }
 
 //honeycomb(length, width, height, cell_size, wall_thickness);
-honeycomb(50, 50, 4, 10, 1);
+//honeycomb(50, 50, 4, 10, 1);
+
+hollowRoundedCornerCube(50,70,4,2);
