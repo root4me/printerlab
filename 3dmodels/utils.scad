@@ -26,21 +26,55 @@ module hollowRoundedCornerCube(length, width, thickness, wallthickness)
     }
 }
 
+/*
 module cylinderWithHandle(radius, thickness)
 {
     rotate_extrude($fn=100) 
         polygon( points = [[0,0], [radius,0], [radius,thickness] , [1,thickness], [2,thickness + 2] , [2,thickness + 6],[0,thickness + 6]] );
 }
+*/
 
-module hollowCylinders(height, maxRadius, minRadius, wallThickness)
+
+// hollow cylinder
+// hollowCylinder(radius, height, wallThickness)
+// radius : radius to outter wall 
+// wallThickness : Thickness of wall
+module hollowCylinder(radius, height, wallThickness)
 {
-    $fn=100;
     difference()
     {
-        cylinder(h=height, r1=maxRadius, r2=maxRadius);
-        cylinder(h=height, r1=maxRadius - wallThickness, r2=maxRadius - wallThickness);
-        
+        cylinder(h=height, r1=radius, r2=radius, $fn=100);
+        cylinder(h=height, r1=radius - wallThickness, r2=radius - wallThickness, $fn=100);
+    }
+}
 
+
+// hollow cylinders
+// hollowCylinders(20, 10, 2, 2, 2)
+// radius : radius to outer wall
+// gapsSize : size of gap between each rings
+// minradius : radius of the smallest ring
+module hollowCylinders(radius, height, wallThickness, gapSize, minRadius)
+{
+    for (i = [radius : -(gapSize + wallThickness) : minRadius])
+    {
+       //echo (i);
+       hollowCylinder(i,height,wallThickness);
+    }
+}
+
+module cone(bottomRadius, topRadius, height)
+{
+    cylinder(h=height, r1=bottomRadius, r2=topRadius, $fn=100);
+}
+
+// hollowCone(10,4,20, 2)
+module hollowCone(bottomRadius, topRadius, height, wallThickness)
+{
+    difference()
+    {
+        cylinder(h=height, r1=bottomRadius, r2=topRadius, $fn=100);
+        cylinder(h=height, r1=bottomRadius - wallThickness, r2=topRadius - wallThickness, $fn=100);
     }
 }
 
@@ -75,5 +109,11 @@ module honeycomb (length, width, height, cell_size, wall_thickness) {
 
 //honeycomb(length, width, height, cell_size, wall_thickness);
 //honeycomb(50, 50, 4, 10, 1);
+//hollowRoundedCornerCube(50,70,4,2);
 
-hollowRoundedCornerCube(50,70,4,2);
+//hollowCylinder(10,20,2);
+
+//hollowCylinders(20, 10, 2, 2, 2);
+//cone(10,2,20);
+
+//hollowCone(10,4,20, 2);
