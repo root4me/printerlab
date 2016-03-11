@@ -29,7 +29,7 @@ module hollowRoundedCornerCube(length, width, thickness, wallthickness)
 /*
 module cylinderWithHandle(radius, thickness)
 {
-    rotate_extrude($fn=100) 
+    rotate_extrude($fn=100)
         polygon( points = [[0,0], [radius,0], [radius,thickness] , [1,thickness], [2,thickness + 2] , [2,thickness + 6],[0,thickness + 6]] );
 }
 */
@@ -37,7 +37,7 @@ module cylinderWithHandle(radius, thickness)
 
 // hollow cylinder
 // hollowCylinder(radius, height, wallThickness)
-// radius : radius to outter wall 
+// radius : radius to outter wall
 // wallThickness : Thickness of wall
 module hollowCylinder(radius, height, wallThickness)
 {
@@ -84,7 +84,7 @@ module hc_column(length, cell_size, wall_thickness) {
         no_of_cells = floor(length / (cell_size + wall_thickness)) ;
 
     echo(no_of_cells);
-    
+
         for (i = [0 : no_of_cells]) {
                 translate([0,(i * (cell_size + wall_thickness)),0])
                          circle($fn = 6, r = cell_size * (sqrt(3)/3));
@@ -122,20 +122,37 @@ module honeycomb (length, width, height, cell_size, wall_thickness) {
 
 //hc_column(50, 4, 1);
 
-hex();
+
+  hex();
 
 module hex()
 {
     rad = 10;
     wallThickness = 2;
-    length = 40;
-    
-    circle($fn=6, r=rad);
-  // translate([rad + (rad/2) + wallThickness/2 ,10,0]) circle($fn=6, r=10);
-  // translate([(rad + (rad/2) + wallThickness/2)*3 ,10,0]) circle($fn=6, r=10);
-     
-    //translate([10 + 10 + 10 + 2,0,0]) circle($fn=6, r=10);
-    
+    length = 100;
+
+
+    //cylinder($fn=6, r=rad, h=2);
+    for (i = [0 : length/((rad*2) + (wallThickness*2))])
+    {
+      translate([rad*(3*i) + (wallThickness*2)*i,0,0]) cylinder($fn=6, r=10, h=2);
+
+      //translate([rad*6 + (wallThickness*2)*2,0,0]) cylinder($fn=6, r=10, h=2);
+      //translate([rad*9 + (wallThickness*2)*3,0,0]) cylinder($fn=6, r=10, h=2);
+    }
+
+    for (j = [1 : 2 : (length/(rad + wallThickness))])
+    {
+      translate([(rad*1.5) *j + wallThickness *j ,rad + wallThickness/2 ,0]) cylinder($fn=6, r=10, h=2);
+    }
+
+
+
+    //translate([(rad*1.5) *3 + wallThickness *3 ,10,0]) circle($fn=6, r=10);
+    //translate([(rad*1.5) *5 + wallThickness *5 ,10,0]) circle($fn=6, r=10);
+
+
+/*
     for (i = [3 : 3 : (length/ rad)])
     {
        echo (i);
@@ -146,5 +163,5 @@ module hex()
     {
         translate([(rad + (rad/2) + wallThickness/2) * i ,10,0]) circle($fn=6, r=10);
     }
-    
+*/
 }
