@@ -83,6 +83,8 @@ module hollowCone(bottomRadius, topRadius, height, wallThickness)
 module hc_column(length, cell_size, wall_thickness) {
         no_of_cells = floor(length / (cell_size + wall_thickness)) ;
 
+    echo(no_of_cells);
+    
         for (i = [0 : no_of_cells]) {
                 translate([0,(i * (cell_size + wall_thickness)),0])
                          circle($fn = 6, r = cell_size * (sqrt(3)/3));
@@ -117,3 +119,32 @@ module honeycomb (length, width, height, cell_size, wall_thickness) {
 //cone(10,2,20);
 
 //hollowCone(10,4,20, 2);
+
+//hc_column(50, 4, 1);
+
+hex();
+
+module hex()
+{
+    rad = 10;
+    wallThickness = 2;
+    length = 40;
+    
+    circle($fn=6, r=rad);
+  // translate([rad + (rad/2) + wallThickness/2 ,10,0]) circle($fn=6, r=10);
+  // translate([(rad + (rad/2) + wallThickness/2)*3 ,10,0]) circle($fn=6, r=10);
+     
+    //translate([10 + 10 + 10 + 2,0,0]) circle($fn=6, r=10);
+    
+    for (i = [3 : 3 : (length/ rad)])
+    {
+       echo (i);
+        translate([(rad * i) + wallThickness,0,0]) circle($fn=6, r=rad);
+    }
+
+    for (i = [3 : 3 : (length/ rad)])
+    {
+        translate([(rad + (rad/2) + wallThickness/2) * i ,10,0]) circle($fn=6, r=10);
+    }
+    
+}
