@@ -79,34 +79,55 @@ module hollowCone(bottomRadius, topRadius, height, wallThickness)
 }
 
 
-// honey comb design
-module hc_column(length, cell_size, wall_thickness) {
-        no_of_cells = floor(length / (cell_size + wall_thickness)) ;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    echo(no_of_cells);
+// honeycomb tiles
+// honeycombSquare(100,100,4,10,2); 
+module honeycombTiles(length, width,thickness,rad,wallThickness)
+{
+    //thickness = 4;
+    //rad = 10;
+    //wallThickness = 2;
+    //length = 100;
+    //width = 100;
+    
+    for (w=[0: width/rad])
+    {
 
-        for (i = [0 : no_of_cells]) {
-                translate([0,(i * (cell_size + wall_thickness)),0])
-                         circle($fn = 6, r = cell_size * (sqrt(3)/3));
+        if (w % 2 == 0)
+        {
+            //cylinder($fn=6, r=rad, h=2);
+            for (i = [0 : length/((rad*2) + (wallThickness*2))])
+            {
+              translate([rad*(3*i) + (wallThickness*2)*i,w*rad,0]) cylinder($fn=6, r=rad, h=thickness);
+
+              //translate([rad*6 + (wallThickness*2)*2,0,0]) cylinder($fn=6, r=10, h=2);
+              //translate([rad*9 + (wallThickness*2)*3,0,0]) cylinder($fn=6, r=10, h=2);
+            }
         }
+ 
+        if (w % 2 == 1)
+        {
+            for (j = [1 : 2 : (length/(rad + wallThickness))])
+            {
+              translate([(rad*1.5) *j + wallThickness *j , (w*rad) + wallThickness/2 ,0])  cylinder($fn=6, r=rad, h=thickness);
+                //translate([(rad*1.5) *3 + wallThickness *3 ,10,0]) circle($fn=6, r=10);
+                //translate([(rad*1.5) *5 + wallThickness *5 ,10,0]) circle($fn=6, r=10);
+            }
+        }
+    }
 }
 
-module honeycomb (length, width, height, cell_size, wall_thickness) {
-        no_of_rows = floor(1.2 * length / (cell_size + wall_thickness)) ;
-
-        tr_mod = cell_size + wall_thickness;
-        tr_x = sqrt(3)/2 * tr_mod;
-        tr_y = tr_mod / 2;
-        off_x = -1 * wall_thickness / 2;
-        off_y = wall_thickness / 2;
-        linear_extrude(height = height, center = true, convexity = 10, twist = 0, slices = 1)
-                difference(){
-                        square([length, width]);
-                        for (i = [0 : no_of_rows]) {
-                                translate([i * tr_x + off_x, (i % 2) * tr_y + off_y,0])
-                                        hc_column(width, cell_size, wall_thickness);
-                        }
-                }
+// honeycomb square
+// A square area with hollow honeycomb design
+// honeycombSquare(100,100,4,10,2);
+module honeycombSquare(length, width, thickness, cellRad,wallThickness)
+{
+    difference()
+    {
+        cube([length,width,thickness], center=true);
+        translate([-length/2,-width/2, -thickness/2]) honeycombTiles(length,width,thickness,cellRad,wallThickness);
+    }
 }
 
 //honeycomb(length, width, height, cell_size, wall_thickness);
@@ -118,50 +139,7 @@ module honeycomb (length, width, height, cell_size, wall_thickness) {
 //hollowCylinders(20, 10, 2, 2, 2);
 //cone(10,2,20);
 
-//hollowCone(10,4,20, 2);
+// hollowCone(10,4,20, 2);
 
-//hc_column(50, 4, 1);
+honeycombSquare(40,40,2,5,2);
 
-
-  hex();
-
-module hex()
-{
-    rad = 10;
-    wallThickness = 2;
-    length = 100;
-
-
-    //cylinder($fn=6, r=rad, h=2);
-    for (i = [0 : length/((rad*2) + (wallThickness*2))])
-    {
-      translate([rad*(3*i) + (wallThickness*2)*i,0,0]) cylinder($fn=6, r=10, h=2);
-
-      //translate([rad*6 + (wallThickness*2)*2,0,0]) cylinder($fn=6, r=10, h=2);
-      //translate([rad*9 + (wallThickness*2)*3,0,0]) cylinder($fn=6, r=10, h=2);
-    }
-
-    for (j = [1 : 2 : (length/(rad + wallThickness))])
-    {
-      translate([(rad*1.5) *j + wallThickness *j ,rad + wallThickness/2 ,0]) cylinder($fn=6, r=10, h=2);
-    }
-
-
-
-    //translate([(rad*1.5) *3 + wallThickness *3 ,10,0]) circle($fn=6, r=10);
-    //translate([(rad*1.5) *5 + wallThickness *5 ,10,0]) circle($fn=6, r=10);
-
-
-/*
-    for (i = [3 : 3 : (length/ rad)])
-    {
-       echo (i);
-        translate([(rad * i) + wallThickness,0,0]) circle($fn=6, r=rad);
-    }
-
-    for (i = [3 : 3 : (length/ rad)])
-    {
-        translate([(rad + (rad/2) + wallThickness/2) * i ,10,0]) circle($fn=6, r=10);
-    }
-*/
-}
