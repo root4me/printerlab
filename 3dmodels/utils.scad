@@ -140,6 +140,3 @@ module honeycombSquare(length, width, thickness, cellRad,wallThickness)
 //cone(10,2,20);
 
 // hollowCone(10,4,20, 2);
-
-honeycombSquare(40,40,2,5,2);
-
