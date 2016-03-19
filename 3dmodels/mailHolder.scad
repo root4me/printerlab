@@ -3,7 +3,7 @@ use <utils.scad>
 module base()
 {
  //   honeycombSquare(102,12,2,5,2);
-    hollowRoundedCornerCube(100,10,2,4);
+    hollowRoundedCornerCube(100,15,4,4);
 }
 
 module holder()
@@ -14,11 +14,11 @@ module holder()
 
 base();
 rotate([90,0,0]) 
-    translate([-38,21,5]) holder();
+    translate([-38,21,7]) holder();
 rotate([90,0,0]) 
-    translate([-38,21,-5]) holder();
+    translate([-38,21,-7]) holder();
 
 rotate([90,0,0]) 
-    translate([38,21,5]) holder();
+    translate([38,21,7]) holder();
 rotate([90,0,0]) 
-    translate([38,21,-5]) holder();
+    translate([38,21,-7]) holder();

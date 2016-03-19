@@ -41,10 +41,11 @@ module cylinderWithHandle(radius, thickness)
 // wallThickness : Thickness of wall
 module hollowCylinder(radius, height, wallThickness)
 {
+
     difference()
     {
-        cylinder(h=height, r1=radius, r2=radius, $fn=100);
-        cylinder(h=height, r1=radius - wallThickness, r2=radius - wallThickness, $fn=100);
+        cylinder(h=height, r1=radius, r2=radius);
+        cylinder(h=height, r1=radius - wallThickness, r2=radius - wallThickness);
     }
 }
 
@@ -82,7 +83,7 @@ module hollowCone(bottomRadius, topRadius, height, wallThickness)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // honeycomb tiles
-// honeycombSquare(100,100,4,10,2); 
+// honeycombSquare(100,100,4,10,2);
 module honeycombTiles(length, width,thickness,rad,wallThickness)
 {
     //thickness = 4;
@@ -90,7 +91,7 @@ module honeycombTiles(length, width,thickness,rad,wallThickness)
     //wallThickness = 2;
     //length = 100;
     //width = 100;
-    
+
     for (w=[0: width/rad])
     {
 
@@ -105,7 +106,7 @@ module honeycombTiles(length, width,thickness,rad,wallThickness)
               //translate([rad*9 + (wallThickness*2)*3,0,0]) cylinder($fn=6, r=10, h=2);
             }
         }
- 
+
         if (w % 2 == 1)
         {
             for (j = [1 : 2 : (length/(rad + wallThickness))])
@@ -140,3 +141,6 @@ module honeycombSquare(length, width, thickness, cellRad,wallThickness)
 //cone(10,2,20);
 
 // hollowCone(10,4,20, 2);
+
+// honeycombSquare(40,40,2,5,2);
+
