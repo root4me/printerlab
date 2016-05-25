@@ -6,6 +6,8 @@ spokeWidth = 2;
 ringWallThickness = 2;
 ringGapSize = 6;
 
+$fn=200;
+ 
 // spokes
 module spokes()
 {
@@ -17,6 +19,6 @@ module spokes()
 
 hollowCylinders(diameter/2, thickness, ringWallThickness, ringGapSize, 4);
 translate([0,0,thickness/2]) spokes();
-cylinder(r=thickness, h=thickness*3, $fn=100);
+cylinder(r=thickness, h=thickness*3);
 
 translate([0,0,thickness]) hollowCylinder(diameter/2,thickness, ringWallThickness);
