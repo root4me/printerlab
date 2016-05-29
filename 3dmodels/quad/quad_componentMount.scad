@@ -11,7 +11,7 @@ module M3_threaded_mount()
   difference()
   {
     translate([0,0,1]) cube ([10,10,2], center=true);
-    metric_thread (diameter=3, pitch=.5, length=10, internal=true);
+    metric_thread (diameter=3, pitch=.5, length=5, internal=true);
   }
 }
 
@@ -49,10 +49,25 @@ module M3_hex_screw(l=5,c=true)
   translate([0,0,1.7])metric_thread (diameter=3, pitch=.5, length=6);
 }
 
-
+module threaded_mount(d=3)
+{
+  difference()
+  {
+    translate([0,0,2]) cube ([10,10,4], center=true);
+    metric_thread (diameter=d, pitch=.5, length=5, internal=true);
+  }
+}
 
 // M3_holeCountersunk();
-M3_hex_screw();
-translate ([10,0,0]) M3_threaded_standOffMount();
-translate ([-10,0,0]) M3_threaded_mount();
-translate ([0,12,0]) M3_holeCountersunk();
+// M3_hex_screw();
+//translate ([10,0,0])
+//M3_threaded_standOffMount();
+//translate ([-10,0,0])
+M3_threaded_mount();
+translate ([8,0,0]) threaded_mount(3.1);
+translate ([16,0,0]) threaded_mount(3.2);
+translate ([24,0,0]) threaded_mount(3.3);
+translate ([32,0,0]) threaded_mount(3.4);
+translate ([40,0,0]) threaded_mount(3.5);
+
+//translate ([0,12,0]) M3_holeCountersunk();
