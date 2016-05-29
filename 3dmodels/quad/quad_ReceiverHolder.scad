@@ -15,7 +15,7 @@ receiverThickness = 15.5;
 thickness = 2;
 endStopLength = 10;
 
-threadDia = 3; //this should be atleast 2.5 mm
+threadDia = 4; //this should be atleast 2.5 mm
 
 module receiver()
 {
@@ -51,20 +51,24 @@ module pokeHoles()
 module sideFastner()
 {
     // Side pillars
-     translate([0, - receiverWidth / 2 - thickness/2  , receiverThickness/2 + thickness/2 ]) rotate([90,90,0]) cube([receiverThickness,thickness,thickness/2], center=true);
-     translate([0, receiverWidth / 2 + thickness/2 , receiverThickness/2 + thickness/2]) rotate([90,90,0]) cube([receiverThickness,thickness,thickness/2], center=true);
+     translate([0, - receiverWidth / 2 - thickness/2  , receiverThickness/2 + thickness/2 ]) rotate([90,90,0]) cube([receiverThickness,thickness,thickness], center=true);
+     translate([0, receiverWidth / 2 + thickness/2 , receiverThickness/2 + thickness/2]) rotate([90,90,0]) cube([receiverThickness,thickness,thickness], center=true);
 
+    // Side pillar base    
+    translate([0, -receiverWidth / 2 - thickness/2 , 1]) cube([receiverThickness/2,thickness,thickness], center=true);
+    translate([0, receiverWidth / 2 + thickness/2 , 1]) cube([receiverThickness/2,thickness,thickness], center=true);
+    
     // Side pillar end stops
-    translate([0, -receiverWidth / 2 - thickness/2 , receiverThickness + thickness]) rotate([90,0,90]) cylinder(r=threadDia/2, h=thickness*2, $fn=50, center=true);
-    translate([0, receiverWidth / 2 + thickness/2 , receiverThickness + thickness]) rotate([90,0,90]) cylinder(r=threadDia/2, h=thickness*2, $fn=50, center=true);
+    translate([0, -receiverWidth / 2 - thickness/2 , receiverThickness + thickness + .8]) rotate([90,0,90]) cylinder(r=threadDia/2, h=thickness, $fn=50, center=true);
+    translate([0, receiverWidth / 2 + thickness/2 , receiverThickness + thickness + .8]) rotate([90,0,90]) cylinder(r=threadDia/2, h=thickness, $fn=50, center=true);
 }
 
 module edgeFastner()
 {
-    translate([-receiverLength/2 , -receiverWidth/2 - thickness,0]) edgeStop();
-    translate([receiverLength/2 + thickness, -receiverWidth/2 ,0]) rotate([0,0,90]) edgeStop();
-    translate([-receiverLength/2, receiverWidth/2 + thickness,2])  rotate([180,0,0]) edgeStop();
-    translate([receiverLength/2, receiverWidth/2 + thickness,0])  rotate([0,0,180]) edgeStop();
+    translate([-receiverLength/2 , -receiverWidth/2 - thickness,.5]) edgeStop();
+    translate([receiverLength/2 + thickness, -receiverWidth/2 ,.5]) rotate([0,0,90]) edgeStop();
+    translate([-receiverLength/2, receiverWidth/2 + thickness,2.5])  rotate([180,0,0]) edgeStop();
+    translate([receiverLength/2, receiverWidth/2 + thickness,.5])  rotate([0,0,180]) edgeStop();
 }
 
 //receiver();
@@ -78,6 +82,8 @@ module edgeFastner()
         cube([receiverWidth ,thickness,thickness *2], center=true);
         translate([0, 10 , 0]) cube([receiverWidth ,thickness,thickness *2], center=true);
         translate([0, - 10 , 0]) cube([receiverWidth ,thickness,thickness *2], center=true);
+        translate([0, 22.5 , 0]) cube([receiverWidth ,thickness,thickness *2], center=true);        
+        translate([0, - 22.5 , 0]) cube([receiverWidth ,thickness,thickness *2], center=true);
     }
     
 sideFastner();

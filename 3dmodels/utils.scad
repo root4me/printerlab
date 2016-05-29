@@ -64,9 +64,13 @@ module hollowCylinders(radius, height, wallThickness, gapSize, minRadius)
     }
 }
 
-module cone(bottomRadius, topRadius, height)
+//
+// b = bottom diameter
+// t = top diameter
+// h = height
+module cone(b, t, h)
 {
-    cylinder(h=height, r1=bottomRadius, r2=topRadius, $fn=100);
+    cylinder(h=h, r1=b/2, r2=t/2, $fn=100);
 }
 
 // hollowCone(10,4,20, 2)
@@ -76,6 +80,23 @@ module hollowCone(bottomRadius, topRadius, height, wallThickness)
     {
         cylinder(h=height, r1=bottomRadius, r2=topRadius, $fn=100);
         cylinder(h=height, r1=bottomRadius - wallThickness, r2=topRadius - wallThickness, $fn=100);
+    }
+}
+
+
+// w = width between flat surface
+// h = height
+module hex (w=10, h=2){
+  cylinder (r=w/2, h=h, center=true, $fn=6);
+}
+
+// hollowCone(10,4,20, 2)
+module hollowHex(w=10, h=2, th=2)
+{
+    difference()
+    {
+        cylinder (r=w/2, h=h, center=true, $fn=6);
+        cylinder (r=w/2 - th, h=h, center=true, $fn=6);
     }
 }
 
@@ -143,4 +164,3 @@ module honeycombSquare(length, width, thickness, cellRad,wallThickness)
 // hollowCone(10,4,20, 2);
 
 // honeycombSquare(40,40,2,5,2);
-
