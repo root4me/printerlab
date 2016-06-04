@@ -164,3 +164,18 @@ module honeycombSquare(length, width, thickness, cellRad,wallThickness)
 // hollowCone(10,4,20, 2);
 
 // honeycombSquare(40,40,2,5,2);
+
+
+module edgeClamp(l=10)
+{
+   difference()
+   {
+    translate([0,.6,0]) rotate([45,0,0]) cube([l,2,2], center=true);
+    translate([0,.6,1.5]) cube([l,1,1], center=true);
+    translate([0,.6,-1.5]) cube([l,1,1], center=true);
+   }
+   cube([l,2,2], center=true);
+}
+
+cube([10,2,2], center=true);
+translate([0,0,2]) edgeClamp();
