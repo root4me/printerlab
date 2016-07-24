@@ -1,6 +1,6 @@
-use <../utils.scad>
+use <../../lib/utils.scad>
 
-use <bolts.scad>
+use <../../3rdParty/threads.scad>
 
 // Standard M8 x 1
 

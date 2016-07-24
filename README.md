@@ -1,1 +1,1 @@
-@ printerlab
+@ printer set up

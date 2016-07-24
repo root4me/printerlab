@@ -7,10 +7,10 @@ module roundedCornerCube(length, width, thickness){
 
         hull()
         {
-            translate([length/2, width/2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
-            translate([length/2, -width/2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
-            translate([-length/2, width/2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
-            translate([-length/2, -width/2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
+            translate([length/2 - 2, width/2 - 2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
+            translate([length/2 - 2, -width/2 + 2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
+            translate([-length/2 + 2, width/2 - 2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
+            translate([-length/2 + 2, -width/2 + 2, 0]) cylinder(r=2, h=thickness, $fn=50, center=true);
         }
 
 }
@@ -100,6 +100,40 @@ module hollowHex(w=10, h=2, th=2)
     }
 }
 
+// h : height
+// ns : number of sides for base
+// br : bottom radius
+// tr : top radius
+// ro : rotation in degree between bottom and top
+// sl : slice layer. high value give smooth appearence
+module twistExtrude(h=50,ns=6,br=20,tr=20,ro=100,sl=5)
+{
+
+	linear_extrude(height = h, twist  = ro,	slices = sl, scale  = tr/br)
+		circle(r=br, $fn=ns);
+}
+
+
+// h : height
+// ns : number of sides for base
+// br : bottom radius
+// tr : top radius
+// ro : rotation in degree between bottom and top
+// sl : slice layer. high value give smooth appearence
+// wt : wall thickness
+module hollowTwistExtrude(h=50,ns=6,br=20,tr=20,ro=100,sl=5,wt=1)
+{
+	difference()
+	{
+		linear_extrude(height = h, twist  = ro,	slices = sl, scale  = tr/br)
+			circle(r=br, $fn=ns);
+
+    translate([0,0,-.01])
+		linear_extrude(height = h + .1, twist  = ro,	slices = sl, scale  = tr/br)
+			circle(r=br - wt, $fn=ns);
+	}
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -171,8 +205,8 @@ module edgeClamp(l=10)
    difference()
    {
     translate([0,.6,0]) rotate([45,0,0]) cube([l,2,2], center=true);
-    translate([0,.6,1.5]) cube([l,1,1], center=true);
-    translate([0,.6,-1.5]) cube([l,1,1], center=true);
+    translate([0,.6,1.5]) cube([l + .1,1,1], center=true);
+    translate([0,.6,-1.5]) cube([l + .1,1,1], center=true);
    }
    cube([l,2,2], center=true);
 }
