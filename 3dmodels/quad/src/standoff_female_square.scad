@@ -19,8 +19,3 @@ module standOff_female_square(h=5,d=3,w=5)
 
 
 standOff_female_square(h=10,d=3.4,w=5);
-
-
-
-
-  

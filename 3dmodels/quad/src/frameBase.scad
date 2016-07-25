@@ -47,6 +47,7 @@ ch = 0;
 rr = ch + 5 + 3; // 5 = cam holder w ;  3mm from cam
 bt = rr + receiver_holder_l() + 2 +  7; // 2 mm = endstop wall thickness; 10 mm from receiver holder
 btl = 108; // max battery length
+btw = 35; // max battery width
 al = bt + btl + 7; // 10mm from battery
 
 module base()
@@ -73,43 +74,58 @@ module base()
   translate([al + videoTx_holder_l() ,(w-videoTx_holder_w() - 4),0]) rotate([0,-90,0]) cube([12,21,2]);
 }
 
+module sides()
+{
+  hull()
+  {
+    translate([1,1,0]) cylinder(r=1, h=sh, $fn=50);
+    translate([bt - 1,1,0]) cylinder(r=1, h=sh, $fn=50);
+  }
+
+  hull()
+  {
+    translate([al,1,0]) cylinder(r=1, h=sh, $fn=50);
+    translate([l - 1,1,0]) cylinder(r=1, h=sh, $fn=50);
+  }
+
+
+  translate([0,w - 2,0])
+  hull()
+  {
+    translate([1,1,0]) cylinder(r=1, h=sh, $fn=50);
+    translate([bt - 1,1,0]) cylinder(r=1, h=sh, $fn=50);
+  }
+
+  translate([0,w - 2,0])
+  hull()
+  {
+    translate([al,1,0]) cylinder(r=1, h=sh, $fn=50);
+    translate([l - 1,1,0]) cylinder(r=1, h=sh, $fn=50);
+  }
+}
+
+
 difference()
 {
   base();
   //translate([bt,0,0]) cube([200,60,20]);
+
+  // battery strap
+  translate([(bt + 108*.1), (w-btw)/2 - 4, - .1]) cube([20,2,t + 1]);
+  translate([(bt + 108*.1), (w-btw)/2 + btw + 2, - .1]) cube([20,2,t + 1]);
+
+  translate([(bt + 108*.7),(w-btw)/2 - 4,-.1]) cube([20,2,t + 1]);
+    translate([(bt + 108*.7),(w-btw)/2 + btw + 2,-.1]) cube([20,2,t + 1]);
+
 }
-translate([bt - .01,0,0]) cube([1,60,20]);
+translate([bt - .01,0,0]) cube([.4,60,20]);
+
+//sides();
 
 // Cam
 //translate([5,(w - cam_holder_l()) /2, t + 2]) rotate([0,-90,0]) cam_holder(l=cam_holder_l(), w=cam_holder_w() , h=cam_holder_h(), t=cam_holder_t());
-
-hull()
-{
-  translate([1,1,0]) cylinder(r=1, h=sh, $fn=50);
-  translate([bt - 1,1,0]) cylinder(r=1, h=sh, $fn=50);
-}
-
-hull()
-{
-  translate([al,1,0]) cylinder(r=1, h=sh, $fn=50);
-  translate([l - 1,1,0]) cylinder(r=1, h=sh, $fn=50);
-}
-
-
-translate([0,w - 2,0])
-hull()
-{
-  translate([1,1,0]) cylinder(r=1, h=sh, $fn=50);
-  translate([bt - 1,1,0]) cylinder(r=1, h=sh, $fn=50);
-}
-
-translate([0,w - 2,0])
-hull()
-{
-  translate([al,1,0]) cylinder(r=1, h=sh, $fn=50);
-  translate([l - 1,1,0]) cylinder(r=1, h=sh, $fn=50);
-}
-
+//
+//
 //translate([((l-alarm_holder_l()) + alarm_holder_l()),15,alarm_holder_w() + t ]) rotate([90,180,0]) alarm_holder(l=alarm_holder_l(), w=alarm_holder_w() , h=alarm_holder_h(), t=alarm_holder_t());
 
 //cube([t,w,30 + (2*t)]);
