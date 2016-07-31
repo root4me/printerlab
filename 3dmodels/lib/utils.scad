@@ -45,7 +45,7 @@ module hollowCylinder(radius, height, wallThickness)
     difference()
     {
         cylinder(h=height, r1=radius, r2=radius);
-        cylinder(h=height, r1=radius - wallThickness, r2=radius - wallThickness);
+        translate([0,0,-.02]) cylinder(h=height + .04, r1=radius - wallThickness, r2=radius - wallThickness);
     }
 }
 
@@ -79,7 +79,7 @@ module hollowCone(bottomRadius, topRadius, height, wallThickness)
     difference()
     {
         cylinder(h=height, r1=bottomRadius, r2=topRadius, $fn=100);
-        cylinder(h=height, r1=bottomRadius - wallThickness, r2=topRadius - wallThickness, $fn=100);
+        translate([0,0,-.02]) cylinder(h=height, r1=bottomRadius - wallThickness, r2=topRadius - wallThickness, $fn=100);
     }
 }
 

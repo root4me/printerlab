@@ -57,8 +57,8 @@ module base()
   translate([l/2,w/2,t/2]) roundedCornerCube(l,w,t);
 
   // Cam holder stand offs
-  translate([5/2,(5/2 + (w-cam_holder_w())/2) - 5 -2,t]) standOff_female_square(h=5,d=3.4,w=5);
-  translate([5/2,5/2 + (w-cam_holder_w())/2 + cam_holder_w() + 2,t]) standOff_female_square(h=5,d=3.4,w=5);
+  translate([5/2,(5/2 + (w-cam_holder_w())/2) - 5 -2,t]) standOff_female_square(h=5,d=3.3,w=5);
+  translate([5/2,5/2 + (w-cam_holder_w())/2 + cam_holder_w() + 2,t]) standOff_female_square(h=5,d=3.3,w=5);
 
   // Receiver
   translate([rr, (w -receiver_holder_w())/2,0 ]) receiver_holder(t=t);
@@ -69,8 +69,8 @@ module base()
   // alarm holder
   translate([alarm_holder_l() + al,30,0]) rotate([0,0,180]) alarm_holder(l=alarm_holder_l(), w=alarm_holder_w() , h=alarm_holder_h(), t=alarm_holder_t());
 
-
-  translate([al + 2,(w-videoTx_holder_w() - 4),t/2]) rotate([0,-20,0]) videoTx_holder(l=videoTx_holder_l(), w=videoTx_holder_w() , h=videoTx_holder_h(), t=2);
+// video transmitter holder
+  translate([al + 2,(w-videoTx_holder_w() - 4),t/2 + .2]) rotate([0,-20,0]) videoTx_holder(l=videoTx_holder_l(), w=videoTx_holder_w() , h=videoTx_holder_h(), t=2);
   translate([al + videoTx_holder_l() ,(w-videoTx_holder_w() - 4),0]) rotate([0,-90,0]) cube([12,21,2]);
 }
 
@@ -108,7 +108,6 @@ module sides()
 difference()
 {
   base();
-  //translate([bt,0,0]) cube([200,60,20]);
 
   // battery strap
   translate([(bt + 108*.1), (w-btw)/2 - 4, - .1]) cube([20,2,t + 1]);
@@ -117,8 +116,10 @@ difference()
   translate([(bt + 108*.7),(w-btw)/2 - 4,-.1]) cube([20,2,t + 1]);
     translate([(bt + 108*.7),(w-btw)/2 + btw + 2,-.1]) cube([20,2,t + 1]);
 
+
+ # translate([rr - 2.2,0,0]) cube([300,60,40]);
 }
-translate([bt - .01,0,0]) cube([.4,60,20]);
+//translate([bt - .01,0,0]) cube([.4,60,20]);
 
 //sides();
 
