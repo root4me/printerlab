@@ -76,17 +76,31 @@ union()
 }
 */
 
+/*
 difference()
 {
-    roundedCornerCube(152.5 + 2, 77.5 + 2, 12 + 2);
-    roundedCornerCube(152.5, 77.5, 12);
-    
-    cube([145,70,15], center=true);
-    translate([0,3,0]) cube([160,65,10], center=true);
-    
-   translate([152.5/2 - 15/2,77.5/2,12/2 - 2]) cube([15,10,2], center=true);
-   translate([152.5/2 - 15/2,77.5/2, -12/2 + 2]) cube([15,10,2], center=true);
-}
+*/
+    union()
+    {
+    difference()
+    {
+        roundedCornerCube(152.5 + 2, 77.5 + 2, 12 + 2);
+        roundedCornerCube(152.5, 77.5, 12);
+        
+        cube([145,70,15], center=true);
+        translate([0,3,0]) cube([160,65,10], center=true);
+        
+       translate([152.5/2 - 15/2,77.5/2,12/2 - 2]) cube([15,10,2], center=true);
+       translate([152.5/2 - 15/2,77.5/2, -12/2 + 2]) cube([15,10,2], center=true);
+    }
 
-translate([0,77.5/2+ 20/2, - 12/2 + 10/2 - 1]) cube([10,20,10],center=true);
-translate([0,77.5/2 + 20 - 3.7,0]) rotate([0,-45,0]) cylinder(r1=3.7,r2=3.7,h=20,$fn=50);
+    translate([0,77.5/2+ 20/2, - 12/2 + 10/2 - 1]) roundedCornerCube(10,20,10);
+    translate([0,77.5/2 + 20 - 3.7,0]) rotate([0,-45,0]) cylinder(r1=3.7,r2=3.7,h=30,$fn=50);
+    }
+
+    /*
+    translate([0,-10,0]) cube([160, 60, 15], center=true);
+}
+   translate([-152.5/2 + 1.5,20.2,0]) cube([5,.4,13],center=true);
+   translate([152.5/2 - 1.5,20.2,0]) cube([5,.4,13],center=true);
+ */
