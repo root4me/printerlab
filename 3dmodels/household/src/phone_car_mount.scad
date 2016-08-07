@@ -2,60 +2,19 @@ use <../../lib/utils.scad>
 
 
 
-l = 60;
-w = 70; // width of the base (l x w = area of the base) 70
-h = 50; // Height of the back support 
-th = 1; // thickness
+l = 152.5; // length 
+w = 77.5; // width 
+h = 12; // height/thickness of phone
+t = 2; // thickness of the sleve
 
-er = 7; // inner radius of the curved edge in front
-
-module body()
-{
- 
-    // front curved edge
-    difference()
-    {
-    translate([0, l/2,er+th/2])
-        difference()
-        {
-            rotate([90,0,0]) cylinder(h=l, r1=er+(th/2), r2=er+(th/2), $fn=100);
-            translate([0,.02,0]) rotate([90,0,0]) cylinder(h=l + 1, r1=er-th/2, r2=er-th/2, $fn=100);
-
-        }
-        translate([th,0,er*2 - th*2]) rotate([0,110,0]) cube([er+th*2,l+2,3*er+(th*2)], center=true);
-        translate([5,0,5]) cube([10,l + 2,10] ,  center=true);
-        
-   }
-
-    // high back
-    translate([sin(20)*(h/2) + er/2 + th + th/2,0,cos(20)*(h/2) + th/2]) rotate([0,110,0]) roundedCornerCube(h, l, th); 
-}
-
-// Tip over back support
-module support()
-{
-    difference()
-    {
-
-        translate([7,0,0]) hollowCone(l/2, 4, 1.5*h, th);
-        //translate([sin(20)*(h/2) + er/2 + th + th/2,0,cos(20)*(h/2) + th/2]) rotate([0,110,0]) roundedCornerCube(h, l, th);
-        #translate([(sin(20)*(h/2))- (h/2 * cos(20)) + th + th,0,(cos(20)*(h/2))]) rotate([0,20,0]) cube([h,l,4*h], center=true);
-    }
-}
-
-union ()
-{
-    //body();
-    //support();
-    //roundedCornerCube(152.5, 12, 77.5);
-}
 
 module phone()
 {
-    rotate([90,0,0]) roundedCornerCube(152.5, 77.5, 12);
+    roundedCornerCube(l, w, t);
 }
 
 // phone();
+
 /*
 translate([0,0,15])
 union()
@@ -80,25 +39,82 @@ union()
 difference()
 {
 */
-    union()
-    {
+
+union()
+ {
+ 
     difference()
     {
-        roundedCornerCube(152.5 + 2, 77.5 + 2, 12 + 2);
-        roundedCornerCube(152.5, 77.5, 12);
+     union()
+     {    
+        difference()
+        {
+            roundedCornerCube(l + t, w + t, h + t);
+            roundedCornerCube(l, w, h);
+        }
+
+        //top
+        translate([0,w/2 - 4,h/2 - 4])
+         rotate([0,90,0])
+         difference()
+         {
+            cube([8,8,l], center=true);
+            translate([0,0,-l/2]) cylinder(r1=4,r2=4,h=l,$fn=50);
+            translate([4,0,0]) cube([8.02,8.02,l + 1], center=true);
+            translate([0,-4,0]) cube([8.02,8.02,l + 1], center=true);
+         } 
+                    
+         //bottom
+         translate([0,-w/2 + 4,h/2 - 4])
+         rotate([0,90,180])
+         difference()
+         {
+            cube([8,8,l], center=true);
+            translate([0,0,-l/2]) cylinder(r1=4,r2=4,h=l,$fn=50);
+            translate([4,0,0]) cube([8.02,8.02,l + 1], center=true);
+            translate([0,-4,0]) cube([8.02,8.02,l + 1], center=true);
+         } 
+
+         // left
+         translate([-l/2 + 4,0,h/2 - 4])
+         rotate([90,0,0])
+         difference()
+         {
+            cube([8,8,w], center=true);
+            translate([0,0,-w/2]) cylinder(r1=4,r2=4,h=w,$fn=50);
+            translate([4,0,0]) cube([8.02,8.02,w + 1], center=true);
+            translate([0,-4,0]) cube([8.02,8.02,w + 1], center=true);
+         } 
+
+         // right
+        translate([l/2 - 4,0,h/2 - 4])
+        rotate([90,0,180])
+         difference()
+         {
+            cube([8,8,w], center=true);
+            translate([0,0,-w/2]) cylinder(r1=4,r2=4,h=w,$fn=50);
+            translate([4,0,0]) cube([8.02,8.02,w + 1], center=true);
+            translate([0,-4,0]) cube([8.02,8.02,w + 1], center=true);
+         } 
+        }
+       
+        // big hole
+        roundedCornerCube(l-8,w-8,h + 3);
+        // through sides
+        translate([0,0,0]) cube([l+10, w -20,8], center=true);
         
-        cube([145,70,15], center=true);
-        translate([0,3,0]) cube([160,65,10], center=true);
-        
-       translate([152.5/2 - 15/2,77.5/2,12/2 - 2]) cube([15,10,2], center=true);
-       translate([152.5/2 - 15/2,77.5/2, -12/2 + 2]) cube([15,10,2], center=true);
+        //
+       translate([l/2 - 15/2,w/2,h/2 - 2]) cube([15,10,2], center=true);
+       translate([l/2 - 15/2,w/2, -h/2 + 2]) cube([15,10,2], center=true);
     }
 
-    translate([0,77.5/2+ 20/2, - 12/2 + 10/2 - 1]) roundedCornerCube(10,20,10);
-    translate([0,77.5/2 + 20 - 3.7,0]) rotate([0,-45,0]) cylinder(r1=3.7,r2=3.7,h=30,$fn=50);
-    }
+    translate([0,w/2+ 20/2, - h/2 + 10/2 - t/2]) roundedCornerCube(10,20,10);
+    translate([0,w/2 + 20 - 3.7,0]) rotate([0,-45,0]) cylinder(r1=3.7,r2=3.7,h=30,$fn=50);
+ }
 
-    /*
+ 
+  
+ /*
     translate([0,-10,0]) cube([160, 60, 15], center=true);
 }
    translate([-152.5/2 + 1.5,20.2,0]) cube([5,.4,13],center=true);
