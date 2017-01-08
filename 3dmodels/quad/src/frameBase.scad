@@ -117,11 +117,26 @@ difference()
     translate([(bt + 108*.7),(w-btw)/2 + btw + 2,-.1]) cube([20,2,t + 1]);
 
 
- # translate([rr - 2.2,0,0]) cube([300,60,40]);
+ //translate([rr - 2.2,0,0]) cube([300,60,40]);
 }
-//translate([bt - .01,0,0]) cube([.4,60,20]);
+
+// battery end holds
+translate([bt - .01,w/2 - 15,-.02]) cube([.4,w/2,20]);
+translate([bt + btl - .01,w/2 - 15 ,-.02]) cube([.4,w/2,20]);
 
 //sides();
+
+// stand offs
+translate([5/2,5/2,0]) standOff_female_square(h=sh,d=3.3,w=5);
+translate([5/2 + (bt - 5),5/2,0]) standOff_female_square(h=sh,d=3.3,w=5);
+translate([bt + btl + 5/2,5/2,0]) standOff_female_square(h=sh,d=3.3,w=5);
+translate([l + 5/2 - 5,5/2,0]) standOff_female_square(h=sh,d=3.3,w=5);
+
+translate([5/2,5/2 + w - 5,0]) standOff_female_square(h=sh,d=3.3,w=5);
+translate([5/2 + (bt - 5),5/2 + w - 5,0]) standOff_female_square(h=sh,d=3.3,w=5);
+translate([bt + btl + 5/2,5/2 + w - 5,0]) standOff_female_square(h=sh,d=3.3,w=5);
+translate([l + 5/2 - 5,5/2 + w - 5,0]) standOff_female_square(h=sh,d=3.3,w=5);
+
 
 // Cam
 //translate([5,(w - cam_holder_l()) /2, t + 2]) rotate([0,-90,0]) cam_holder(l=cam_holder_l(), w=cam_holder_w() , h=cam_holder_h(), t=cam_holder_t());

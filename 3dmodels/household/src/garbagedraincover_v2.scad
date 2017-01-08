@@ -1,4 +1,4 @@
-use <utils.scad>
+use <../../lib/utils.scad>
 
 diameter = 85;
 thickness = 4;

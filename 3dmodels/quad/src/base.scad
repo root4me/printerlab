@@ -1,11 +1,11 @@
 
 use <landing.scad>
 
-l = 220; // length of the base plate 130
-w = 60; // width for the base 52.5
+l = 130; // length of the base plate 130 , 220
+w = 52.5; // width for the base 52.5, 60
 ml = 10; // module lenght . Lenght of each strip containing holes to attach standoffs
 
-t = 4; // thickness
+t = 2.2; // thickness
 f = 50; // number of facets for cylinders
 
 // holes for screwing in the stand offs using M3 screw
@@ -17,11 +17,11 @@ module standOffHoles()
 {
   hull()
   {
-    cylinder (r=d/2, h=t, $fn=f);
+    cylinder (r=d/2, h=t + 1, $fn=f);
     //translate([0,.5,0]) cylinder (r=d/2, h=t, $fn=f);
     //translate([0,-.5,0]) cylinder (r=d/2, h=t, $fn=f);
   }
-  translate([0,wd,0]) cylinder (r=d/2, h=t, $fn=f);
+  translate([0,wd,0]) cylinder (r=d/2, h=t + 1, $fn=f);
 }
 
 module standOffHolesPair()
@@ -58,14 +58,14 @@ module basePlate()
 {
   difference()
   {
-    cube([l,w,2]);
+    cube([l,w,t]);
     translate([(l - ld)/2,(w-wd)/2,-.1]) standOffHolesPair();
 
-    translate([(l - ld + 10)/2,(w-wd)/2 - 1,-.1]) cube([ld-10,2,4]);
-    translate([(l - ld + 10)/2,(w-wd)/2 + wd - 1,-.1]) cube([ld-10,2,4]);
+    translate([(l - ld + 10)/2,(w-wd)/2 - 1,-.1]) cube([ld-10,2,t+2]);
+    translate([(l - ld + 10)/2,(w-wd)/2 + wd - 1,-.1]) cube([ld-10,2,t+2]);
   }
 
-translate([(l-40)/2,0,0]) cube ([40 , w ,2]);
+translate([(l-40)/2,0,0]) cube ([40 , w ,t]);
 }
 
 module attachLandingSkids()
@@ -76,9 +76,9 @@ module attachLandingSkids()
   translate([l - 6,w - 12,2]) rotate([0,0,90]) landingSkid();
 }
 
-// landingSkid();
+//landingSkid();
 basePlate();
-//attachLandingSkids();
+attachLandingSkids();
 
 //battery();
 
