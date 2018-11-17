@@ -22,7 +22,7 @@ module hollowRoundedCornerCube(length, width, thickness, wallthickness)
     difference()
     {
         roundedCornerCube(length,width,thickness);
-        roundedCornerCube(length-(wallthickness*2),width-(wallthickness*2),thickness);
+        roundedCornerCube(length -(wallthickness + 2),width-(wallthickness +2 ),thickness + .1);
     }
 }
 

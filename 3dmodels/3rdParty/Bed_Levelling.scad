@@ -7,10 +7,10 @@
 // Define your printers printable area
 // If you are using Sprinter firmware then these come directly from configuration.h
 
-X_MAX_LENGTH = 210;
-Y_MAX_LENGTH = 210;
+X_MAX_LENGTH = 200;
+Y_MAX_LENGTH = 200;
 
-THICKNESS = 0.4; //Square / outline thickness
+THICKNESS = 0.2; //Square / outline thickness
 SIZE = 20; //Square width / height
 GAP = 0.5; //Width of border between square and parameter
 OUTLINE_WIDTH = 1; //Width of parameter around square
